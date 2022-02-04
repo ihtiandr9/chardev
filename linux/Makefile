@@ -1,4 +1,4 @@
-obj-m += my_module.o
+obj-m += mychrdev.o
 
 all:
 	        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
@@ -6,8 +6,8 @@ all:
 clean:
 	        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 
-load: my_module.ko
-	        sudo insmod my_module.ko
+load: mychrdev.ko
+	        sudo insmod mychrdev.ko
 
 unload:
-	        sudo rmmod my_module.ko
+	        sudo rmmod mychrdev.ko

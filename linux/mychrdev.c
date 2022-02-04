@@ -8,7 +8,7 @@
 static char *kbuf;
 static dev_t first;
 static unsigned int count = 1;
-static int my_major = 700, my_minor = 0;
+static int my_major = 511, my_minor = 0;
 static struct cdev *my_cdev;
 
 #define MYDEV_NAME "mychrdev"

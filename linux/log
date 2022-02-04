@@ -1,0 +1,48 @@
+/home/user/proj/chardev/my_module.c:20:10: error: ‘mychrdev_read’ undeclared here (not in a function)
+   20 |  .read = mychrdev_read,
+      |          ^~~~~~~~~~~~~
+/home/user/proj/chardev/my_module.c:21:11: error: ‘mychrdev_write’ undeclared here (not in a function)
+   21 |  .write = mychrdev_write,
+      |           ^~~~~~~~~~~~~~
+/home/user/proj/chardev/my_module.c:22:10: error: ‘mychrdev_open’ undeclared here (not in a function); did you mean ‘mycdev_fops’?
+   22 |  .open = mychrdev_open,
+      |          ^~~~~~~~~~~~~
+      |          mycdev_fops
+/home/user/proj/chardev/my_module.c:23:13: error: ‘mychrdev_release’ undeclared here (not in a function); did you mean ‘devres_release’?
+   23 |  .release = mychrdev_release
+      |             ^~~~~~~~~~~~~~~~
+      |             devres_release
+/home/user/proj/chardev/my_module.c:33:12: error: function declaration isn’t a prototype [-Werror=strict-prototypes]
+   33 | static int mychrdev_release(){
+      |            ^~~~~~~~~~~~~~~~
+/home/user/proj/chardev/my_module.c: In function ‘init_chrdev’:
+/home/user/proj/chardev/my_module.c:15:19: error: expected expression before ‘ssize_t’
+   15 | #define KBUF_SIZE ssize_t ((10) * PAGE_SIZE)
+      |                   ^~~~~~~
+/home/user/proj/chardev/my_module.c:60:17: note: in expansion of macro ‘KBUF_SIZE’
+   60 |  kbuf = kmalloc(KBUF_SIZE, GFP_KERNEL);
+      |                 ^~~~~~~~~
+/home/user/proj/chardev/my_module.c:60:9: error: too few arguments to function ‘kmalloc’
+   60 |  kbuf = kmalloc(KBUF_SIZE, GFP_KERNEL);
+      |         ^~~~~~~
+In file included from /home/user/proj/chardev/my_module.c:5:
+./include/linux/slab.h:542:30: note: declared here
+  542 | static __always_inline void *kmalloc(size_t size, gfp_t flags)
+      |                              ^~~~~~~
+At top level:
+/home/user/proj/chardev/my_module.c:46:16: warning: ‘mychrdev_write’ defined but not used [-Wunused-function]
+   46 | static ssize_t mychrdev_write(struct file *file, const char __user *buf, size_t lbuf, loff_t *ppos)
+      |                ^~~~~~~~~~~~~~
+/home/user/proj/chardev/my_module.c:39:16: warning: ‘mychrdev_read’ defined but not used [-Wunused-function]
+   39 | static ssize_t mychrdev_read(struct file *file, const char __user *buf, size_t lbuf, loff_t *ppos)
+      |                ^~~~~~~~~~~~~
+/home/user/proj/chardev/my_module.c:33:12: warning: ‘mychrdev_release’ defined but not used [-Wunused-function]
+   33 | static int mychrdev_release(){
+      |            ^~~~~~~~~~~~~~~~
+/home/user/proj/chardev/my_module.c:27:12: warning: ‘mychrdev_open’ defined but not used [-Wunused-function]
+   27 | static int mychrdev_open(struct inode *inode, struct file *file){
+      |            ^~~~~~~~~~~~~
+cc1: some warnings being treated as errors
+make[2]: *** [scripts/Makefile.build:270: /home/user/proj/chardev/my_module.o] Error 1
+make[1]: *** [Makefile:1762: /home/user/proj/chardev] Error 2
+make: *** [Makefile:4: all] Error 2

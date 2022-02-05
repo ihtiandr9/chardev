@@ -39,10 +39,11 @@ static ssize_t mychrdev_write(struct file *file, const char __user *buf, size_t 
 {
 
 	printk(KERN_INFO "Write device: %s \n\n", MYDEV_NAME);
-	return 0;
+	return 55;
 }
 static void cleanup_chrdev(void)
 {
+	if(kbuf) kfree(kbuf);
 	printk(KERN_INFO "Bye , unloading");
 }
 

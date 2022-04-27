@@ -30,9 +30,14 @@ static int mychrdev_release(struct inode *inode, struct file *file)
 
 static ssize_t mychrdev_read(struct file *file, char __user *buf, size_t lbuf, loff_t *ppos)
 {
-
-	printk(KERN_INFO "Read device: %s \n\n", MYDEV_NAME);
-	return 0;
+	ssize_t readed = 0;
+	printk(KERN_INFO "Read device: %s \n at pos %lld\n", MYDEV_NAME, *ppos);
+	if (file->f_pos < 12){
+		strcpy(buf,"hello world");
+		readed = 12;
+		(*ppos) += 12;
+	}
+	return readed;
 }
 
 static ssize_t mychrdev_write(struct file *file, const char __user *buf, size_t lbuf, loff_t *ppos)
@@ -47,13 +52,13 @@ static void cleanup_chrdev(void)
 	printk(KERN_INFO "Bye , unloading");
 }
 
-static const struct file_operations mycdev_fops = {
-
+const struct file_operations mycdev_fops = {
 	.owner = THIS_MODULE,
 	.read = mychrdev_read,
 	.write = mychrdev_write,
 	.open = mychrdev_open,
 	.release = mychrdev_release};
+
 
 static int init_chrdev(void)
 {
